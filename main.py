@@ -16,9 +16,18 @@ information = { "Rock" : {"Lose" : "Paper",
 }
 
 def game():
-    user_input = str(input("Choose Rock, Paper, or Scissors: ").title())
+    user_input = str(input("Choose Rock, Paper, or Scissors (type the word): ").title())
 
     computer_input = random.choice(list(information.keys()))  # Picks a random option for the computer
+
+    # Checks to see if user inputted valid response
+    if user_input not in information.keys():
+        if user_input.lower() == "e":
+            exit()
+        
+        print("Invalid response, try typing the complete word.\n")
+        
+        return game()
 
     for info in information:
 
@@ -27,19 +36,20 @@ def game():
             print(f"I chose {computer_input}.")
             
             if user_input == information[info]["Tie"]:
-                print("Tie!")
+                print("Tie!\n")
                 return game()
             
             elif computer_input == information[user_input]["Win"]:
-                print("You won!")
+                print("You won!\n")
                 return game()
             
             elif computer_input == information[user_input]["Lose"]:
-                print("You lost!")
+                print("You lost!\n")
                 return game()
             
             else:
-                print("ERROR")
+                print("ERROR\n")
 
 if __name__ == '__main__':
+    print("Welcome to a game of Rock, Paper, Scissors!\nTo play, please type the full word from the following options.\nTo exit, type 'e'.")
     game()
