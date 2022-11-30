@@ -37,7 +37,7 @@ def game():
             
             if user_input == information[info]["Tie"]:
                 print("Tie!\n")
-                return game()
+                game()
             
             elif computer_input == information[user_input]["Win"]:
                 print("You won!\n")
