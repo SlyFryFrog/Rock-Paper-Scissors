@@ -27,7 +27,7 @@ def game():
         
         print("Invalid response, try typing the complete word.\n")
         
-        return game()
+        game()
 
     for info in information:
 
@@ -41,11 +41,11 @@ def game():
             
             elif computer_input == information[user_input]["Win"]:
                 print("You won!\n")
-                return game()
+                game()
             
             elif computer_input == information[user_input]["Lose"]:
                 print("You lost!\n")
-                return game()
+                game()
             
             else:
                 print("ERROR\n")
