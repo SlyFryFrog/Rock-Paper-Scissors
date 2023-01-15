@@ -1,55 +1,55 @@
 # Rock, paper, scissors game
 import random
+import sys
 
-information = { "Rock" : {"Lose" : "Paper",
+information = { "Rock" : {
+                        "Lost" : "Paper",
                         "Win" : "Scissors",
                         "Tie" : "Rock"
                         },
-                "Paper" : {"Lose" : "Scissors",
+                "Paper" : {
+                        "Lost" : "Scissors",
                         "Win" : "Rock",
                         "Tie" : "Paper"
                         },
-                "Scissors" : {"Lose" : "Rock",
+                "Scissors" : {
+                        "Lost" : "Rock",
                         "Win" : "Paper",
                         "Tie" : "Scissors"
                         }
 }
 
-def game():
+def game_input():
+    '''Function asks user for input'''
     user_input = str(input("Choose Rock, Paper, or Scissors (type the word): ").title())
 
-    computer_input = random.choice(list(information.keys()))  # Picks a random option for the computer
+    # Picks a random option for the computer
+    computer_input = random.choice(list(information.keys()))
 
     # Checks to see if user inputted valid response
-    if user_input not in information.keys():
+    if user_input not in information:
         if user_input.lower() == "e":
-            exit()
-        
+            sys.exit()
         print("Invalid response, try typing the complete word.\n")
-        
-        game()
+        game_input()
+    else:
+        game(computer_input, user_input)
 
-    for info in information:
+def game(computer_input, user_input):
+    '''Checks to see if user won'''
+    # Used to state what the result of the round was
+    results = ["Win", "Lost", "Tie"]
+    
+    if computer_input in information.keys():
+        for result in results:
+            # Checks to see if game result value matches user_input
+            if information[computer_input][result] == user_input:
+                print(f"The computer chose {computer_input} and resulted in a {result} for the computer!\n")
+                game_input()
 
-        # Checks if user won, lost, or tied to the computer
-        if info == computer_input:
-            print(f"I chose {computer_input}.")
-            
-            if user_input == information[info]["Tie"]:
-                print("Tie!\n")
-                game()
-            
-            elif computer_input == information[user_input]["Win"]:
-                print("You won!\n")
-                game()
-            
-            elif computer_input == information[user_input]["Lose"]:
-                print("You lost!\n")
-                game()
-            
-            else:
-                print("ERROR\n")
 
 if __name__ == '__main__':
-    print("Welcome to a game of Rock, Paper, Scissors!\nTo play, please type the full word from the following options.\nTo exit, type 'e'.")
-    game()
+    print('''Welcome to a game of Rock, Paper, Scissors!
+        \nTo play, please type the full word from the following options.
+        \nTo exit, type 'e'.''')
+    game_input()
